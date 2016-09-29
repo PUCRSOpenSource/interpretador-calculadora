@@ -31,7 +31,7 @@ Para o projeto de compiladores, as seguintes regras devem ser aplicadas:
   
 - Operadores válidos, valendo as regras de precedência e associatividade da linguagem Java:
   
-  - Aritméticos: _+_, _-_, _*_, _/_, _^_ (potência, maior precedência e associativo à direita). Operandos devem ser numéricos e o resultado é numérico
+  - __Aritméticos:__ _+_, _-_, _*_, _/_, _^_ (potência, maior precedência e associativo à direita). Operandos devem ser numéricos e o resultado é numérico
   
   - __Relacionais:__ _>_, _>=_, _\<_, _<=_, _!=_. Operandos numéricos e o resultado lógico.
   
