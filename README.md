@@ -1,6 +1,6 @@
 # Projeto Compiladores 2016-2
 
-Implemenetação da calculadora 'bc', disponível em sistemas Linux, com várias simplificações para tornar o projeto viável no prazo proposto. Mais informações em https://www.gnu.org/software/bc/manual/bc.html ou http://sciencesoft.at/bc/, entre outros links.
+Implemenetação da calculadora [bc](https://www.gnu.org/software/bc/manual/bc.html), disponível em sistemas Linux, com várias simplificações para tornar o projeto viável no prazo proposto.
 
 Para o projeto de compiladores, as seguintes regras devem ser aplicadas:
 
