@@ -1,6 +1,6 @@
 # Projeto Compiladores 2016-2
 [![Build Status](https://travis-ci.com/djornada/interpretador-calculadora.svg?token=5JLBuaWZHaduxmfL3XDo&branch=master)](https://travis-ci.com/djornada/interpretador-calculadora)
-[![GitHub Issues](https://img.shields.io/github/issues-raw/badges/shields.svg?maxAge=2592000)](https://github.com/djornada/interpretador-calculadora/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/djornada/interpretador-calculadora.svg)](https://github.com/djornada/interpretador-calculadora/issues)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=flat-square)]()
 
 Implemenetação da calculadora [bc](https://www.gnu.org/software/bc/manual/bc.html), disponível em sistemas Linux, com várias simplificações para tornar o projeto viável no prazo proposto.
@@ -47,8 +47,10 @@ Para o projeto de compiladores, as seguintes regras devem ser aplicadas:
   - __Sequencia:__ _,_ . Expressões são avaliadas sequencialmente e o resultado da lista é o resultado da última expressão avaliada.
   
 - Comandos
- - Seleção (if)
- - Repetição (while e for)
- - Impressão (print)
-- Definição de funções. 
- - __Atenção!__ A declaração e uso de funções é o grande diferencial da calculadora e então valerá 25% da nota final do trabalho!
+  - Seleção (if)
+  
+  - Repetição (while e for)
+  
+  - Impressão (print)
+  
+- Definição de funções
