@@ -1,6 +1,7 @@
 # Projeto Compiladores 2016-2
 [![Build Status](https://travis-ci.com/djornada/interpretador-calculadora.svg?token=5JLBuaWZHaduxmfL3XDo&branch=master)](https://travis-ci.com/djornada/interpretador-calculadora)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=flat-square)]()
+[![GitHub Issues](https://img.shields.io/github/issues-raw/badges/shields.svg?maxAge=2592000)](https://github.com/djornada/interpretador-calculadora/issues)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=flat-square)]()
 
 Implemenetação da calculadora [bc](https://www.gnu.org/software/bc/manual/bc.html), disponível em sistemas Linux, com várias simplificações para tornar o projeto viável no prazo proposto.
 
