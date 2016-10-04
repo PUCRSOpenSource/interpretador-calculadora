@@ -1,5 +1,7 @@
 # Projeto Compiladores 2016-2
 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=flat-square)]()
+
 Implemenetação da calculadora [bc](https://www.gnu.org/software/bc/manual/bc.html), disponível em sistemas Linux, com várias simplificações para tornar o projeto viável no prazo proposto.
 
 Para o projeto de compiladores, as seguintes regras devem ser aplicadas:
