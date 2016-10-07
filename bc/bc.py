@@ -1,9 +1,11 @@
-import lexer as lexer
+from lexer import BcLexer 
+
+lex = BcLexer()
+lex.build()
 while True: 	
-	try:
-		calc_input = input('>')
-	except EOFError:
-		break
-	lexer.lexer.input(calc_input)
-	[token for token in lexer.lexer]
+    try:
+        calc_input = input('> ')
+    except EOFError:
+        break
+    lex.parse(calc_input)
 
