@@ -17,7 +17,7 @@ class BcLexer():
         self.tokens = ['ID'] + list(self.reserved.values())
         self.literals = ['+', '-', '/', '*', '^', '<', '>', '=', 
                          '!', '&', '|', ':', '?', '(', ')', '{', 
-                         '}', '[', ']', ';']
+                         '}', '[', ']', ';', ',']
         
         self.t_ignore  = ' \t\r'
 
