@@ -12,6 +12,19 @@ class BcParser():
             print('-')
         elif p[2] == '*':
             print('*')
+        elif p[2] == '/':
+            print ('/') 
+        elif p[2] == 'ˆ':
+            print ('ˆ')            
+        elif p[2] == '<':
+            print ('<')            
+        elif p[2] == '<=':
+            print ('<=')
+        elif p[2] == '>=':
+            print ('>=')   
+        elif p[2] == '>':
+            print ('>')    
+     
 
     def build(self):
         self.parser = yacc.yacc(module=self)
