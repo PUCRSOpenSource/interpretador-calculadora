@@ -1,8 +1,8 @@
-from lexer import BcLexer 
+from BcLexer import BcLexer as lexer
 
-lex = BcLexer()
+lex = lexer()
 lex.build()
-while True: 	
+while True:
     try:
         calc_input = input('> ')
     except EOFError:
