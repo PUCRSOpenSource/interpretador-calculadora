@@ -12,6 +12,7 @@ class BcLexer():
             'show'     : 'SHOW',
             'show_all' : 'SHOW_ALL',
             'if'       : 'IF',
+            'else'     : 'ELSE',
             'while'    : 'WHILE',
             'for'      : 'FOR',
             'define'   : 'DEFINE'
@@ -65,7 +66,7 @@ class BcLexer():
         token.lexer.lineno += 1
 
     def t_id(self, token):
-        r'[a-z-A-Z_][a-zA-Z_0-9]*'
+        r'[a-zA-Z_][a-zA-Z_0-9]*'
         token.type = self.reserved.get(token.value, 'ID')
         return token
 
