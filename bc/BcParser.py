@@ -44,6 +44,15 @@ class BcParser():
                     | expr TIMES expr
                     | expr DIVIDE expr
                     | expr POW expr
+                    | expr LT expr
+                    | expr GT expr
+                    | expr LE expr
+                    | expr GE expr
+                    | expr EQ expr
+                    | expr NE expr
+                    | expr OR expr
+                    | expr AND expr
+                    | expr NOT expr
         """
         if token[2] == '+':
             token[0] = token[1] + token[3]
@@ -55,22 +64,22 @@ class BcParser():
             token[0] = token[1] / token[3]
         elif token[2] == 'ˆ':
             token[0] = token[1]**token[3]
-        # elif p[2] == '<':
-            # print ('<')
-        # elif p[2] == '<=':
-            # print ('<=')
-        # elif p[2] == '>=':
-            # print ('>=')   
-        # elif p[2] == '>':
-            # print ('>')
-        # elif p[2] == '&&':
-            # print ('&&')
-        # elif p[2] == '||':
-            # print ('||')
-        # elif p[2] == '!=':
-            # print ('!=')
-        # elif p[2] == '!.':
-            # print ('!.')   
+        elif token[2] == '<':
+             token[0] = token[1] < token[3]
+        elif token[2] == '<=':
+            token[0] = token[1] <= token[3]
+        elif token[2] == '>=':
+            token[0] = token[1] >= token[3]
+        elif token[2] == '>':
+            token[0] = token[1] > token[3]
+        elif token[2] == '&&':
+            token[0] = token[1] > token[3]
+        elif token[2] == '||':
+            token[0] = token[1] || token[3]
+        elif token[2] == '!=':
+            token[0] = token[1] != token[3]
+        elif p[2] == '!.':
+            token[0] = token[1] !. token[3]   
 
     def parse(self, data):
         """docstring for parse"""
