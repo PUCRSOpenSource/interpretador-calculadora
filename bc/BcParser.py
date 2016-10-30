@@ -14,12 +14,6 @@ class BcParser():
                 ('left', 'TIMES', 'DIVIDE'),
                 ('right', 'UMINUS')
                 )
-    # def p_statement(self, token):
-        # """
-            # statement   : expr_statement
-                        # | expr_statement_assgin
-        # """
-        # token[0] = token[1]
 
     def p_expr_statement_assgin(self, token):
         """
@@ -40,15 +34,20 @@ class BcParser():
             actual = self.names[token[1]]
             self.names[token[1]] = token[3] + actual
 
-    # def p_expr_statement(self, token):
-        # """
-            # statement : expr
-        # """
-        # print(token[1])
+    def p_expr_statement(self, token):
+        """
+            statement : expr
+        """
+        print(token[1])
 
     def p_expr_number(self, token):
         """expr : NUMBER"""
         token[0] = token[1]
+
+    def p_expr_id(self, token):
+        """expr : ID """
+        if token[1] in self.names:
+            token[0] = self.names[token[1]]
 
     # def p_if(self, token):
         # """
@@ -81,7 +80,7 @@ class BcParser():
         elif token[2] == '/':
             token[0] = token[1] / token[3]
         elif token[2] == 'ˆ':
-            token[0] = token[1]**token[3]
+            token[0] = token[1] **token[3]
         elif token[2] == '<':
              token[0] = token[1] < token[3]
         elif token[2] == '<=':
@@ -110,4 +109,5 @@ while True:
         calc_input = input('> ')
     except EOFError:
         break
-    bc.parse(calc_input)
+    x=bc.parse(calc_input)
+    # print(x)
