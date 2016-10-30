@@ -78,8 +78,8 @@ class BcParser():
             token[0] = token[1] or token[3]
         elif token[2] == '!=':
             token[0] = token[1] != token[3]
-        elif p[2] == '!.':
-            token[0] = token[1] !. token[3]   
+        elif p[2] == '!':
+            token[0] = token[1] ! token[3]   
 
     def parse(self, data):
         """docstring for parse"""
