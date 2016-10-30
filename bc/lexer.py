@@ -2,23 +2,63 @@ import ply.lex as lex
 
 class BcLexer():
     def __init__(self):
-        self.reserved = {
-                'help'     : 'HELP',
-                'load'     : 'LOAD',
-                'save'     : 'SAVE',
-                'show'     : 'SHOW',
-                'show_all' : 'SHOW_ALL',
-                'if'       : 'IF',
-                'while'    : 'WHILE',
-                'for'      : 'FOR',
-                'define'   : 'DEFINE'
-                }
-
-        self.tokens = ['ID', 'NUMBER'] + list(self.reserved.values())
-        self.literals = ['+', '-', '/', '*', '^', '<', '>', '=', 
-                         '!', '&', '|', ':', '?', '(', ')', '{', 
-                         '}', '[', ']', ';', ',']
+        self.literals = [':', '?', ';']
         self.t_ignore  = ' \t\r'
+
+    reserved = {
+            'help'     : 'HELP',
+            'load'     : 'LOAD',
+            'save'     : 'SAVE',
+            'show'     : 'SHOW',
+            'show_all' : 'SHOW_ALL',
+            'if'       : 'IF',
+            'while'    : 'WHILE',
+            'for'      : 'FOR',
+            'define'   : 'DEFINE'
+            }
+    tokens = ['PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POW',
+            'LT', 'GT', 'LE', 'GE', 'EQ', 'NE',
+            'OR', 'AND', 'NOT',
+            'EQUALS', 'TIMESEQUAL', 'PLUSEQUAL',
+            'LPAREN', 'RPAREN',
+            'LBRACKET', 'RBRACKET',
+            'LBRACE', 'RBRACE', 'COMMA',
+            'ID', 'NUMBER'] + list(reserved.values())
+
+    # Atritiméticos
+    t_PLUS              = r'\+'
+    t_MINUS             = r'-'
+    t_TIMES             = r'\*'
+    t_DIVIDE            = r'/'
+    t_POW               = r'\^'
+
+    # Relacionais
+    t_LT                = r'<'
+    t_GT                = r'>'
+    t_LE                = r'<='
+    t_GE                = r'>='
+    t_EQ                = r'=='
+    t_NE                = r'!='
+
+    # Lógicos
+    t_OR               = r'\|\|'
+    t_AND              = r'&&'
+    t_NOT              = r'!'
+
+    # Atribuição
+    t_EQUALS            = r'='
+    t_TIMESEQUAL        = r'\*='
+    t_PLUSEQUAL         = r'\+='
+
+    # Delimitadores
+    t_LPAREN            = r'\('
+    t_RPAREN            = r'\)'
+    t_LBRACKET          = r'\['
+    t_RBRACKET          = r'\]'
+    t_LBRACE            = r'\{'
+    t_RBRACE            = r'\}'
+    t_COMMA             = r','
+
 
     def t_newline(self, token):
         r'\n+'
@@ -34,7 +74,7 @@ class BcLexer():
         try:
             token.value = int(token.value)
         except ValueError: 
-            print("Integer value too large %d", token.value)
+            print('Integer value too large %d', token.value)
             token.value = 0 
         return token
 
