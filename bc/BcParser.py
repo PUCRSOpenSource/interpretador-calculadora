@@ -49,11 +49,11 @@ class BcParser():
         if token[1] in self.names:
             token[0] = self.names[token[1]]
 
-    # def p_if(self, token):
-        # """
-            # statement  : IF LPAREN expr RPAREN statement
-        # """
-        
+    def p_if(self, token):
+        """
+            statement  : IF LPAREN expr RPAREN statement
+                       | IF LPAREN expr RPAREN statement ELSE statement
+        """
 
     def p_expr_bin(self, token):
         """
