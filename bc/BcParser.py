@@ -20,7 +20,13 @@ class BcParser():
             statement : SHOW_ALL
                       | HELP
         """
-        
+    
+        def p_function(self, token):
+        """
+           statement  : DEFINE ID LPAREN RPAREN LBRACE statement RBRACE
+           
+        """
+    
     def p_expr_statement_assgin(self, token):
         """
             statement   : ID EQUALS expr
