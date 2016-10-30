@@ -23,7 +23,15 @@ class BcParser():
         elif p[2] == '>=':
             print ('>=')   
         elif p[2] == '>':
-            print ('>')    
+            print ('>')
+        elif p[2] == '&&':
+            print ('&&')
+        elif p[2] == '||':
+            print ('||')
+        elif p[2] == '!=':
+            print ('!=')
+        elif p[2] == '!.':
+            print ('!.')   
      
 
     def build(self):
