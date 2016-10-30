@@ -17,6 +17,7 @@ class BcParser():
 
     def p_statement_assgin(self, token):
         """statement: ID EQUALS expression"""
+        names[token[1]] = token[3]
 
         
     def p_expr(self, token):
@@ -30,8 +31,8 @@ class BcParser():
                    | NUMBER
         """
         print(token)
-        # if p[2] == '+':
-            # print('+')
+        if token[2] == '+':
+            print('+')
         # elif p[2] == '-':
             # print('-')
         # elif p[2] == '*':
