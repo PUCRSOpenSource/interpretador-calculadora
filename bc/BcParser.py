@@ -14,27 +14,46 @@ class BcParser():
                 ('left', 'TIMES', 'DIVIDE'),
                 ('right', 'UMINUS')
                 )
+    # def p_statement(self, token):
+        # """
+            # statement   : expr_statement
+                        # | expr_statement_assgin
+        # """
+        # token[0] = token[1]
 
     def p_expr_statement_assgin(self, token):
         """
-            statement : ID EQUALS expr
+            statement   : ID EQUALS expr
+                        | ID TIMESEQUAL expr
+                        | ID PLUSEQUAL expr
         """
-        self.names[token[1]] = token[3]
+        if token[2] == '=':
+            self.names[token[1]] = token[3]
+        elif token[2] == '*=':
+            if token[1] not in self.names:
+                self.names[token[1]] = 0
+            actual = self.names[token[1]]
+            self.names[token[1]] = token[3] * actual
+        elif token[2] == '+=':
+            if token[1] not in self.names:
+                self.names[token[1]] = 0
+            actual = self.names[token[1]]
+            self.names[token[1]] = token[3] + actual
 
-    def p_expr_statement(self, token):
-        """
-            statement : expr
-        """
-        print(token[1])
+    # def p_expr_statement(self, token):
+        # """
+            # statement : expr
+        # """
+        # print(token[1])
 
     def p_expr_number(self, token):
         """expr : NUMBER"""
         token[0] = token[1]
 
-    def P_if_expr(self, token):
-        """
-            if      : IF LPAREN expr RPAREN statement
-        """
+    # def p_if(self, token):
+        # """
+            # statement  : IF LPAREN expr RPAREN statement
+        # """
         
 
     def p_expr_bin(self, token):
@@ -79,7 +98,6 @@ class BcParser():
             token[0] = token[1] != token[3]
 
     def parse(self, data):
-        """docstring for parse"""
         self.parser.parse(data)
 
     def build(self):
