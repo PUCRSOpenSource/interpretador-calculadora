@@ -15,32 +15,46 @@ class BcParser():
                 ('right', 'UMINUS')
                 )
 
-    def p_statement_assgin(self, token):
-        """statement: ID EQUALS expression"""
-        names[token[1]] = token[3]
+    def p_expr_statement_assgin(self, token):
+        """
+            statement : ID EQUALS expr
+        """
+        self.names[token[1]] = token[3]
 
+    def p_expr_statement(self, token):
+        """
+            statement : expr
+        """
+        print(token[1])
+
+    def p_expr_number(self, token):
+        """expr : NUMBER"""
+        token[0] = token[1]
+
+    def P_if_expr(self, token):
+        """
+            if      : IF LPAREN expr RPAREN statement
+        """
         
-    def p_expr(self, token):
+
+    def p_expr_bin(self, token):
         """
-        expr       : expr PLUS expr
-                   | expr MINUS expr
-                   | expr TIMES expr
-                   | expr DIVIDE expr
-                   | expr POW expr
-                   | ID
-                   | NUMBER
+            expr    : expr PLUS expr
+                    | expr MINUS expr
+                    | expr TIMES expr
+                    | expr DIVIDE expr
+                    | expr POW expr
         """
-        print(token)
         if token[2] == '+':
-            print('+')
-        # elif p[2] == '-':
-            # print('-')
-        # elif p[2] == '*':
-            # print('*')
-        # elif p[2] == '/':
-            # print ('/') 
-        # elif p[2] == 'ˆ':
-            # print ('ˆ')
+            token[0] = token[1] + token[3]
+        elif token[2] == '-':
+            token[0] = token[1] - token[3]
+        elif token[2] == '*':
+            token[0] = token[1] * token[3]
+        elif token[2] == '/':
+            token[0] = token[1] / token[3]
+        elif token[2] == 'ˆ':
+            token[0] = token[1]**token[3]
         # elif p[2] == '<':
             # print ('<')
         # elif p[2] == '<=':
