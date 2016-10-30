@@ -15,6 +15,12 @@ class BcParser():
                 ('right', 'UMINUS')
                 )
 
+    def p_build_in_unary(self, token):
+        """
+            statement : SHOW_ALL
+                      | HELP
+        """
+        
     def p_expr_statement_assgin(self, token):
         """
             statement   : ID EQUALS expr
@@ -41,20 +47,11 @@ class BcParser():
         print(token[1])
 
     def p_expr_number(self, token):
-        """
-            expr : NUMBER
-        """
+        """expr : NUMBER"""
         token[0] = token[1]
 
-    def p_function(self, token):
-        """
-            statement  : DEFINE ID LPAREN RPAREN LBRACE statement RBRACE
-        """
-
     def p_expr_id(self, token):
-        """
-            expr : ID
-        """
+        """expr : ID """
         if token[1] in self.names:
             token[0] = self.names[token[1]]
 
@@ -73,11 +70,11 @@ class BcParser():
         """
             statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement
         """
-
+        
     def p_not(self, token):
         """
             statement   : NOT expr
-        """
+        """    
 
     def p_expr_bin(self, token):
         """
