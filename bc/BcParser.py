@@ -41,11 +41,20 @@ class BcParser():
         print(token[1])
 
     def p_expr_number(self, token):
-        """expr : NUMBER"""
+        """
+            expr : NUMBER
+        """
         token[0] = token[1]
 
+    def p_function(self, token):
+        """
+            statement  : DEFINE ID LPAREN RPAREN LBRACE statement RBRACE
+        """
+
     def p_expr_id(self, token):
-        """expr : ID """
+        """
+            expr : ID
+        """
         if token[1] in self.names:
             token[0] = self.names[token[1]]
 
@@ -61,7 +70,9 @@ class BcParser():
         """
 
     def p_for_loop(self, token):
-        """statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement"""
+        """
+            statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement
+        """
 
     def p_expr_bin(self, token):
         """
