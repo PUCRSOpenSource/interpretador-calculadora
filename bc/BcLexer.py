@@ -6,11 +6,11 @@ class BcLexer():
         self.t_ignore  = ' \t\r'
 
     reserved = {
-            'help'     : 'HELP',
-            'load'     : 'LOAD',
-            'save'     : 'SAVE',
-            'show'     : 'SHOW',
-            'show_all' : 'SHOW_ALL',
+            '#help'     : 'HELP',
+            '#load'     : 'LOAD',
+            '#save'     : 'SAVE',
+            '#show'     : 'SHOW',
+            '#show_all' : 'SHOW_ALL',
             'if'       : 'IF',
             'else'     : 'ELSE',
             'while'    : 'WHILE',
@@ -23,7 +23,7 @@ class BcLexer():
             'EQUALS', 'TIMESEQUAL', 'PLUSEQUAL',
             'LPAREN', 'RPAREN',
             'LBRACKET', 'RBRACKET',
-            'LBRACE', 'RBRACE', 'COMMA',
+            'LBRACE', 'RBRACE', 'COMMA', 'SEMI',
             'ID', 'NUMBER'] + list(reserved.values())
 
     # Atritiméticos
