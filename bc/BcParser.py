@@ -61,7 +61,14 @@ class BcParser():
         """
 
     def p_for_loop(self, token):
-        """statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement"""
+        """
+            statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement
+        """
+        
+    def p_not(self, token):
+        """
+            statement   : NOT expr
+        """    
 
     def p_expr_bin(self, token):
         """
