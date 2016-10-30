@@ -55,6 +55,12 @@ class BcParser():
                        | IF LPAREN expr RPAREN statement ELSE statement
                        | P_WHILE_LOOP LPAREN expr RPAREN statement 
         """
+        
+    def p_while_loop(self, token):
+        """
+            statement  : WHILE LPAREN expr RPAREN statement 
+                   
+        """    
 
     def p_expr_bin(self, token):
         """
