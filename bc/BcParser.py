@@ -54,11 +54,14 @@ class BcParser():
             statement  : IF LPAREN expr RPAREN statement
                        | IF LPAREN expr RPAREN statement ELSE statement
         """
-        
+
     def p_while_loop(self, token):
         """
             statement  : WHILE LPAREN expr RPAREN statement 
-        """    
+        """
+
+    def p_for_loop(self, token):
+        """statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement"""
 
     def p_expr_bin(self, token):
         """
@@ -114,5 +117,4 @@ while True:
         calc_input = input('> ')
     except EOFError:
         break
-    x=bc.parse(calc_input)
-    # print(x)
+    bc.parse(calc_input)

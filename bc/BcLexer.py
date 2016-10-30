@@ -59,6 +59,7 @@ class BcLexer():
     t_LBRACE            = r'\{'
     t_RBRACE            = r'\}'
     t_COMMA             = r','
+    t_SEMI              = r';'
 
 
     def t_newline(self, token):
