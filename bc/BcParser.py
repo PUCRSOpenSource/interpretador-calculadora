@@ -28,9 +28,16 @@ class BcParser():
                       | PRINT ID
         """
 
+    def p_params(self, token):
+        """
+            listParams : ID, listParams
+                       | ID
+        """
+
+
     def p_function(self, token):
         """
-            statement  : DEFINE ID LPAREN RPAREN LBRACE statement RBRACE
+            statement  : DEFINE ID LPAREN listParams RPAREN LBRACE statement RBRACE
         """
 
     def p_expr_statement_assgin(self, token):
