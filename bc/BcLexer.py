@@ -11,11 +11,12 @@ class BcLexer():
             '#save'     : 'SAVE',
             '#show'     : 'SHOW',
             '#show_all' : 'SHOW_ALL',
-            'if'       : 'IF',
-            'else'     : 'ELSE',
-            'while'    : 'WHILE',
-            'for'      : 'FOR',
-            'define'   : 'DEFINE'
+            '#print'    : 'PRINT',
+            'if'        : 'IF',
+            'else'      : 'ELSE',
+            'while'     : 'WHILE',
+            'for'       : 'FOR',
+            'define'    : 'DEFINE'
             }
     tokens = ['PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POW',
             'LT', 'GT', 'LE', 'GE', 'EQ', 'NE',

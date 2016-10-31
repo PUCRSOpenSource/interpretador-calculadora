@@ -25,6 +25,7 @@ class BcParser():
             statement : SHOW ID
                       | SAVE ID
                       | LOAD ID
+                      | PRINT ID
         """
 
     def p_function(self, token):
@@ -81,11 +82,11 @@ class BcParser():
         """
             statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement
         """
-        
+
     def p_not(self, token):
         """
             statement   : NOT expr
-        """    
+        """
 
     def p_expr_bin(self, token):
         """
