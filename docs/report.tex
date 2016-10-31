@@ -1,27 +1,52 @@
-\documentclass{acm_proc_article-sp}
-
-\usepackage[brazil]{babel}
+\documentclass[12pt]{article}
+\usepackage[brazilian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{morefloats}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
 
-\graphicspath{{figures/}}
+\restylefloat{table}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\sloppy
+
+\title{Compiladores\\Faculdade de Informática - PUCRS}
+
+\author{
+Diego Jornada \footnote{diego.jornada@acad.pucrs.br - 11204078} \\ 
+Isadora Kurtz \footnote{isadora.kurtz@acad.pucrs.br - 13108765} \\
+Marina Barros \footnote{marina.barros@acad.pucrs.br - 11104974} \\
+}
+
 
 \begin{document}
-\makeatletter
-\def\@copyrightspace{\relax}
-\makeatother
-
-\title{}
-
-\numberofauthors{2}
-\author{\alignauthor Diego Pinto da Jornada\\
-        \email{diego.jornada@acad.pucrs.br}
-        \alignauthor Marina Lain de Barros\\
-        \email{marina.barros@acad.pucrs.br}
-}
 
 \maketitle
 
-\input{./sections/introducao.tex}
+\begin{abstract}
+
+O trabalho aborda o projeto do semestre da cadeira de Compiladores, cujo objetivo é criar um interpretador para uma calculadora seguindo as descrições apresentadas na especificação. 
+
+
+\end{abstract}
+
+
+
+\section{Introdução}
+Dentro do escopo da disciplina, a primeira parte do trabalho, visa a implementação de um analisador léxico, especificação sintática utilizando o gerador BYACC. 
+
+Basicamente, o analisador léxico verifica um código fonte e verifica se uma gama de símbolos é válida ou não. Quando uma palavra é reconhecida como válida, ela então compõe um token léxico. Já o analisador sintático processa o conjunto de tokens e verifica se é possível formar uma entrada válida através da construção de uma árvore de derivação. A gramática fornecida para o gerador de analisadores léxicos é uma gramática livre de contexto.
+
+\section{Analisador Léxico}
+
+
+\section{Analisador Sintático}
+
 
 \end{document}
