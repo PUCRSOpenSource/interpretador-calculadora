@@ -30,7 +30,7 @@ class BcParser():
 
     def p_params(self, token):
         """
-            listParams : ID, listParams
+            listParams : ID COMMA listParams
                        | ID
         """
 
