@@ -20,7 +20,7 @@
 
 \author{
 Diego Jornada \footnote{diego.jornada@acad.pucrs.br - 11204078} \\ 
-Isadora Kurtz \footnote{isadora.kurtz@acad.pucrs.br - 13108765} \\
+Isadora Kurtz \footnote{isadora.caterina@acad.pucrs.br - 13104445} \\
 Marina Barros \footnote{marina.barros@acad.pucrs.br - 11104974} \\
 }
 
@@ -39,14 +39,53 @@ O trabalho aborda o projeto do semestre da cadeira de Compiladores, cujo objetiv
 
 
 \section{Introdução}
-Dentro do escopo da disciplina, a primeira parte do trabalho, visa a implementação de um analisador léxico, especificação sintática utilizando o gerador BYACC. 
 
-Basicamente, o analisador léxico verifica um código fonte e verifica se uma gama de símbolos é válida ou não. Quando uma palavra é reconhecida como válida, ela então compõe um token léxico. Já o analisador sintático processa o conjunto de tokens e verifica se é possível formar uma entrada válida através da construção de uma árvore de derivação. A gramática fornecida para o gerador de analisadores léxicos é uma gramática livre de contexto.
+Dentro do escopo da disciplina o trabalho visa a implementação de uma calculadora $bash$ $calculator$, que precisa respeitar as seguintes especificações: 
+
+\begin{itemize}
+    \item  A calculadora trabalha com os tipos numéricos: (double) e lógico (boolean) 
+    \item  Vai ter apenas 3 casas decimais
+    \item  Funções recursivas são permitidas
+    \item  Existirão 3 modos básicos de operação: Imediato, Atribuição, Operação
+\end{itemize}
+\newpage
+Vai possuir as seguintes variáveis de Controle:
+
+\begin{itemize}
+    \item  Help: Auxílio básico sobre o uso da calculadora
+    \item  Load: Carregar as declarações de funções
+    \item  Save: Grava conteúdo da tabela de funções
+    \item  Show: Dados armazenados na tabela de funções
+    \item  Show All: Dados armazenados na tabela de funções
+\end{itemize}
+
+Assim como, vão existir as seguintes operadores válidos: Aritméticos, Relacionais, Lógicos, Atribuição, Condicional, e de Sequencia.
+Também será implementado os comandos de: Seleção, Repetição, Impressão.O trabalho foi implementado usando a linguagem Phyton, usando a biblioteca ply (Python Lex-Yacc).
 
 \section{Analisador Léxico}
+
+No analisador léxico, foram feitas as seguintes implementações:
+
+\begin{verbatim}
+     reserved = {
+            '#help'     : 'HELP',
+            '#load'     : 'LOAD',
+            '#save'     : 'SAVE',
+            '#show'     : 'SHOW',
+            '#show_all' : 'SHOW_ALL',
+            '#print'    : 'PRINT',
+            'if'        : 'IF',
+            'else'      : 'ELSE',
+            'while'     : 'WHILE',
+            'for'       : 'FOR',
+            'define'    : 'DEFINE'
+            }
+\end{verbatim}
+
 
 
 \section{Analisador Sintático}
 
+O analisador sintático 
 
 \end{document}
