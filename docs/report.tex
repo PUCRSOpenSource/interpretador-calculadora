@@ -64,7 +64,8 @@ Também será implementado os comandos de: Seleção, Repetição, Impressão.O 
 
 \section{Analisador Léxico}
 
-No analisador léxico, foi implementado as palavras reservadas
+No analisador léxico(arquivo lexer.py), onde são reconhecidas as palavras reservadas, identificadores e outras palavras que pertencem a linguagem onde foi implementado as palavras reservadas.
+Foi implementado as seguintes palavras reservadas:
 
 \begin{verbatim}
      reserved = {
@@ -82,10 +83,35 @@ No analisador léxico, foi implementado as palavras reservadas
             }
 \end{verbatim}
 
+Além das palavras reservadas definidos demais tokens como \&\&, ||, +, -, entre outros operadores. Na biblioteca ply o lexer identifica as regras para tokens através do sufixo $t_$, além dos token foram definidas funções para lida com '\n' para que quando um erro léxico for identificado a linha em que ocorreu o erro.
 
 
 \section{Analisador Sintático}
 
-O analisador sintático 
+No analisador sintático foi implementada a gramática expressa na documentação do $bc$.
+Segue um exemplo da implementação dos operadores válidos: +, -, /, *: 
 
+\begin{verbatim}
+       if token[2] == '+':
+            token[0] = token[1] + token[3]
+        elif token[2] == '-':
+            token[0] = token[1] - token[3]
+        elif token[2] == '*':
+            token[0] = token[1] * token[3]
+        elif token[2] == '/':
+            token[0] = token[1] / token[3]
+        elif token[2] == 'ˆ':
+            }
+\end{verbatim}
+
+
+\section{Considerações}
+
+ O Analisador sintático tem alguns pontos de atenção:
+ \begin{itemize}
+     \item IF, WHILE, FOR, e Funções suportam apenas um statement
+     \item Para executar o analisador é necessário as biblioteca
+     \item
+ \end{itemize}
+   
 \end{document}
