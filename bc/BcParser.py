@@ -1,3 +1,4 @@
+import logging
 from ply import yacc as yacc
 from . import BcLexer as lexer
 
@@ -21,8 +22,6 @@ def p_built_in_unary(token):
         statement : SHOW_ALL
                   | HELP
     """
-def p_expression_uminus(token):
-    """expr : MINUS expr %prec UMINUS"""
 
 def p_built_in_binary(token):
     """
@@ -32,30 +31,12 @@ def p_built_in_binary(token):
                   | PRINT ID
     """
 
-def p_params(token):
-    """
-        listParams : ID COMMA listParams
-                   | ID
-                   | empty
-    """
-
-def p_statements(token):
-    """
-        liststatements : statement SEMI liststatements
-                       | statement
-                       | empty
-    """
-
-
 def p_function(token):
     """
         statement  : DEFINE ID LPAREN listParams RPAREN LBRACE liststatements RBRACE
     """
-def p_empty(token):
-    """empty :"""
-    pass
 
-def p_expr_statement_assgin(token):
+def p_expr_statement_assign(token):
     """
         statement : ID EQUALS expr
                   | ID TIMESEQUAL expr
@@ -80,15 +61,6 @@ def p_expr_statement(token):
     """
     print(token[1])
 
-def p_expr_number(token):
-    """expr : NUMBER"""
-    token[0] = token[1]
-
-def p_expr_id(token):
-    """expr : ID """
-    if token[1] in names:
-        token[0] = names[token[1]]
-
 def p_if(token):
     """
         statement  : IF LPAREN expr RPAREN statement
@@ -109,6 +81,15 @@ def p_not(token):
     """
         statement   : NOT expr
     """
+
+def p_expr_number(token):
+    """expr : NUMBER"""
+    token[0] = token[1]
+
+def p_expr_id(token):
+    """expr : ID """
+    if token[1] in names:
+        token[0] = names[token[1]]
 
 def p_expr_bin(token):
     """
@@ -134,8 +115,8 @@ def p_expr_bin(token):
         token[0] = token[1] * token[3]
     elif token[2] == '/':
         token[0] = token[1] / token[3]
-    elif token[2] == 'ˆ':
-        token[0] = token[1] **token[3]
+    elif token[2] == '^':
+        token[0] = token[1] ** token[3]
     elif token[2] == '<':
          token[0] = token[1] < token[3]
     elif token[2] == '<=':
@@ -151,7 +132,36 @@ def p_expr_bin(token):
     elif token[2] == '!=':
         token[0] = token[1] != token[3]
 
+def p_expression_uminus(token):
+    """expr : MINUS expr %prec UMINUS"""
+
+def p_params(token):
+    """
+        listParams : ID COMMA listParams
+                   | ID
+                   | empty
+    """
+
+def p_statements(token):
+    """
+        liststatements : statement SEMI liststatements
+                       | statement
+                       | empty
+    """
+
+def p_empty(token):
+    """empty :"""
+    pass
+
+
 def parse(data):
     parser.parse(data)
 
-parser = yacc.yacc()
+logging.basicConfig(
+        level = logging.DEBUG,
+        filename = "BcParser.log",
+        filemode = "w",
+        format = "%(filename)10s:%(lineno)4d:%(message)s"
+        )
+log = logging.getLogger()
+parser = yacc.yacc(debug=True, debuglog=log, errorlog=log)

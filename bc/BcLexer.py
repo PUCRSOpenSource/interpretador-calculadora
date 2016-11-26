@@ -1,4 +1,13 @@
+import logging
 from ply import lex as lex
+
+logging.basicConfig(
+        level = logging.DEBUG,
+        filename = "BcLexer.log",
+        filemode = "w",
+        format = "%(filename)10s:%(lineno)4d:%(message)s"
+        )
+log = logging.getLogger()
 
 literals = [':', '?']
 t_ignore  = ' \t\r'
@@ -25,31 +34,31 @@ tokens = ['PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POW',
         'LBRACE', 'RBRACE', 'COMMA', 'SEMI',
         'ID', 'NUMBER'] + list(reserved.values())
 
-t_PLUS      = r'\+'
-t_MINUS     = r'-'
-t_TIMES     = r'\*'
-t_DIVIDE    = r'/'
-t_POW       = r'\^'
-t_LT        = r'<'
-t_GT        = r'>'
-t_LE        = r'<='
-t_GE        = r'>='
-t_EQ        = r'=='
-t_NE        = r'!='
-t_OR        = r'\|\|'
-t_AND       = r'&&'
-t_NOT       = r'!'
+t_PLUS       = r'\+'
+t_MINUS      = r'-'
+t_TIMES      = r'\*'
+t_DIVIDE     = r'/'
+t_POW        = r'\^'
+t_LT         = r'<'
+t_GT         = r'>'
+t_LE         = r'<='
+t_GE         = r'>='
+t_EQ         = r'=='
+t_NE         = r'!='
+t_OR         = r'\|\|'
+t_AND        = r'&&'
+t_NOT        = r'!'
 t_EQUALS     = r'='
 t_TIMESEQUAL = r'\*='
 t_PLUSEQUAL  = r'\+='
-t_LPAREN    = r'\('
-t_RPAREN    = r'\)'
-t_LBRACKET  = r'\['
-t_RBRACKET  = r'\]'
-t_LBRACE    = r'\{'
-t_RBRACE    = r'\}'
-t_COMMA     = r','
-t_SEMI      = r';'
+t_LPAREN     = r'\('
+t_RPAREN     = r'\)'
+t_LBRACKET   = r'\['
+t_RBRACKET   = r'\]'
+t_LBRACE     = r'\{'
+t_RBRACE     = r'\}'
+t_COMMA      = r','
+t_SEMI       = r';'
 
 
 def t_newline(token):
@@ -91,3 +100,5 @@ def parse(data):
 
 def build():
     lexer = lex.lex()
+
+lex.lex(debug=True, debuglog=log, errorlog=log)
