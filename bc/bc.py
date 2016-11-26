@@ -1,11 +1,11 @@
-from BcLexer import BcLexer as lexer
+from BcParser import BcParser as parser
 
-lex = lexer()
-lex.build()
+parser = parser().parser
+
 while True:
     try:
         calc_input = input('> ')
     except EOFError:
         break
-    lex.parse(calc_input)
+    parser.parse(calc_input)
 

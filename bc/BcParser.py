@@ -9,18 +9,28 @@ class BcParser():
         self.bclex.build()
         self.tokens = self.bcLexer.tokens
         self.names = {}
-        self.precence = (
+        self.precedence = (
+                ('left', 'OR'),
+                ('left', 'AND'),
+                ('nonassoc', 'NOT'),
+                ('left', 'LT', 'GT', 'LE', 'GE', 'EQ', 'NE'),
+                ('right', 'EQUALS', 'TIMESEQUAL', 'PLUSEQUAL'),
                 ('left', 'PLUS', 'MINUS'),
                 ('left', 'TIMES', 'DIVIDE'),
-                ('right', 'UMINUS')
+                ('left', 'POW'),
+                ('right', 'UMINUS'),
                 )
+        self.parser = yacc.yacc(module=self)
 
-    def p_build_in_unary(self, token):
+    def p_built_in_unary(self, token):
         """
             statement : SHOW_ALL
                       | HELP
         """
-    def p_build_in_binary(self, token):
+    def p_expression_uminus(self, token):
+        """expr : MINUS expr %prec UMINUS"""
+
+    def p_built_in_binary(self, token):
         """
             statement : SHOW ID
                       | SAVE ID
@@ -32,19 +42,30 @@ class BcParser():
         """
             listParams : ID COMMA listParams
                        | ID
+                       | empty
+        """
+
+    def p_statements(self, token):
+        """
+            liststatements : statement SEMI liststatements
+                           | statement
+                           | empty
         """
 
 
     def p_function(self, token):
         """
-            statement  : DEFINE ID LPAREN listParams RPAREN LBRACE statement RBRACE
+            statement  : DEFINE ID LPAREN listParams RPAREN LBRACE liststatements RBRACE
         """
+    def p_empty(self, token):
+        """empty :"""
+        pass
 
     def p_expr_statement_assgin(self, token):
         """
-            statement   : ID EQUALS expr
-                        | ID TIMESEQUAL expr
-                        | ID PLUSEQUAL expr
+            statement : ID EQUALS expr
+                      | ID TIMESEQUAL expr
+                      | ID PLUSEQUAL expr
         """
         if token[2] == '=':
             self.names[token[1]] = token[3]
@@ -87,7 +108,7 @@ class BcParser():
 
     def p_for_loop(self, token):
         """
-            statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN statement
+            statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN LBRACE liststatements RBRACE
         """
 
     def p_not(self, token):
@@ -138,15 +159,3 @@ class BcParser():
 
     def parse(self, data):
         self.parser.parse(data)
-
-    def build(self):
-        self.parser = yacc.yacc(module=self)
-
-bc = BcParser()
-bc.build()
-while True:
-    try:
-        calc_input = input('> ')
-    except EOFError:
-        break
-    bc.parse(calc_input)
