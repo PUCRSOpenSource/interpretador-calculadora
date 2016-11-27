@@ -81,6 +81,7 @@ def p_for_loop(token):
     """
     token[0] = ('for', token[3], token[5], token[7], token[10])
     print(token[0])
+    print(evaluate(token[0]))
 
 def p_not(token):
     """
@@ -178,9 +179,31 @@ def evaluate(lst):
         return evaluate(lst[1]) + evaluate(lst[2])
     elif(lst[0] == '-'):
         return evaluate(lst[1]) - evaluate(lst[2])
+    elif(lst[0] == '*'):
+        return evaluate(lst[1]) * evaluate(lst[2])
+    elif(lst[0] == '^'):
+        return evaluate(lst[1]) ** evaluate(lst[2])
+    elif(lst[0] == '/'):
+        return evaluate(lst[1]) / evaluate(lst[2])
+    elif(lst[0] == '<'):
+        return evaluate(lst[1]) < evaluate(lst[2])
+    elif(lst[0] == '<='):
+        return evaluate(lst[1]) <= evaluate(lst[2])
+    elif(lst[0] == '>'):
+        return evaluate(lst[1]) > evaluate(lst[2])
+    elif(lst[0] == '>='):
+        return evaluate(lst[1]) >= evaluate(lst[2])
+    elif(lst[0] == '&&'):
+        return evaluate(lst[1]) and evaluate(lst[2])
+    elif(lst[0] == '||'):
+        return evaluate(lst[1]) or evaluate(lst[2])
+    elif(lst[0] == '!='):
+        return evaluate(lst[1]) != evaluate(lst[2])
+
     elif(lst[0] == 'for'):
         for i in range(evaluate(lst[1]),evaluate(lst[2]), evaluate(lst[3])):
-            return evaluate(lst[4])
+            evaluate(lst[4])
+        return
 
 def parse(data):
     parser.parse(data)
