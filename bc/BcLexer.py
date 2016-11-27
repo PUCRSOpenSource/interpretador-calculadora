@@ -1,9 +1,9 @@
 import logging
-from ply import lex as lex
+from .ply import lex as lex
 
 logging.basicConfig(
         level = logging.DEBUG,
-        filename = "BcLexer.log",
+        filename = "bc.log",
         filemode = "w",
         format = "%(filename)10s:%(lineno)4d:%(message)s"
         )

@@ -1,5 +1,5 @@
 import logging
-from ply import yacc as yacc
+from .ply import yacc as yacc
 from . import BcLexer as lexer
 
 lexer.build()
@@ -16,6 +16,11 @@ precedence = (
         ('left', 'POW'),
         ('right', 'UMINUS'),
         )
+
+def p_expr_statement(token):
+    """
+        statement : expr
+    """
 
 def p_built_in_unary(token):
     """
@@ -55,31 +60,29 @@ def p_expr_statement_assign(token):
         actual = names[token[1]]
         names[token[1]] = token[3] + actual
 
-def p_expr_statement(token):
-    """
-        statement : expr
-    """
-    print(token[1])
-
 def p_if(token):
     """
-        statement  : IF LPAREN expr RPAREN statement
-                   | IF LPAREN expr RPAREN statement ELSE statement
+        statement : IF LPAREN expr RPAREN liststatements statement_else
+    """
+
+def p_else(token):
+    """statement_else : ELSE liststatements
+                      | empty
     """
 
 def p_while_loop(token):
     """
-        statement  : WHILE LPAREN expr RPAREN statement 
+        statement : WHILE LPAREN expr RPAREN liststatements 
     """
 
 def p_for_loop(token):
     """
-        statement   : FOR LPAREN expr SEMI expr SEMI expr RPAREN LBRACE liststatements RBRACE
+        statement : FOR LPAREN expr SEMI expr SEMI expr RPAREN LBRACE liststatements RBRACE
     """
 
 def p_not(token):
     """
-        statement   : NOT expr
+        statement : NOT expr
     """
 
 def p_expr_number(token):
@@ -131,9 +134,11 @@ def p_expr_bin(token):
         token[0] = token[1] or token[3]
     elif token[2] == '!=':
         token[0] = token[1] != token[3]
+    print(token[0])
 
 def p_expression_uminus(token):
     """expr : MINUS expr %prec UMINUS"""
+    token[0] = -token[2]
 
 def p_params(token):
     """
@@ -159,7 +164,7 @@ def parse(data):
 
 logging.basicConfig(
         level = logging.DEBUG,
-        filename = "BcParser.log",
+        filename = "bc.log",
         filemode = "w",
         format = "%(filename)10s:%(lineno)4d:%(message)s"
         )
