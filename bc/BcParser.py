@@ -79,6 +79,8 @@ def p_for_loop(token):
     """
         statement : FOR LPAREN expr SEMI expr SEMI expr RPAREN LBRACE liststatements RBRACE
     """
+    token[0] = ('for', token[3], token[5], token[7], token[10])
+    print(token[0])
 
 def p_not(token):
     """
@@ -87,7 +89,7 @@ def p_not(token):
 
 def p_expr_number(token):
     """expr : NUMBER"""
-    token[0] = token[1]
+    token[0] = ('num',token[1])
 
 def p_expr_id(token):
     """expr : ID """
@@ -111,30 +113,31 @@ def p_expr_bin(token):
                 | expr AND expr
     """
     if token[2] == '+':
-        token[0] = token[1] + token[3]
+        token[0] = ('+', token[1], token[3])
     elif token[2] == '-':
-        token[0] = token[1] - token[3]
+        token[0] = ('-',token[1],token[3])
     elif token[2] == '*':
-        token[0] = token[1] * token[3]
+        token[0] = ('*', token[1] , token[3])
     elif token[2] == '/':
-        token[0] = token[1] / token[3]
+        token[0] = ('/', token[1] , token[3])
     elif token[2] == '^':
-        token[0] = token[1] ** token[3]
+        token[0] = ('^', token[1] , token[3])
     elif token[2] == '<':
-         token[0] = token[1] < token[3]
+         token[0] = ('<' , token[1] , token[3])
     elif token[2] == '<=':
-        token[0] = token[1] <= token[3]
+        token[0] = ('<=' , token[1] , token[3])
     elif token[2] == '>=':
-        token[0] = token[1] >= token[3]
+        token[0] = ('>=' , token[1] , token[3])
     elif token[2] == '>':
-        token[0] = token[1] > token[3]
+        token[0] = ('>' , token[1] , token[3])
     elif token[2] == '&&':
-        token[0] = token[1] > token[3]
+        token[0] = ('&&' , token[1] , token[3])
     elif token[2] == '||':
-        token[0] = token[1] or token[3]
+        token[0] = ('||' , token[1] , token[3])
     elif token[2] == '!=':
-        token[0] = token[1] != token[3]
+        token[0] = ('!=' , token[1] , token[3])
     print(token[0])
+    print(evaluate(token[0]))
 
 def p_expression_uminus(token):
     """expr : MINUS expr %prec UMINUS"""
@@ -150,14 +153,34 @@ def p_params(token):
 def p_statements(token):
     """
         liststatements : statement SEMI liststatements
-                       | statement
-                       | empty
     """
+
+
+def p_statments_alone(t):
+    '''
+        liststatements : statement        
+    '''    
+    t[0] = t[1]
+
+def p_statments_empty(t):
+    '''
+        liststatements : empty        
+    '''
 
 def p_empty(token):
     """empty :"""
     pass
 
+def evaluate(lst):
+    if(lst[0] == 'num'):
+        return lst[1]
+    elif(lst[0] == '+'):
+        return evaluate(lst[1]) + evaluate(lst[2])
+    elif(lst[0] == '-'):
+        return evaluate(lst[1]) - evaluate(lst[2])
+    elif(lst[0] == 'for'):
+        for i in range(evaluate(lst[1]),evaluate(lst[2]), evaluate(lst[3])):
+            return evaluate(lst[4])
 
 def parse(data):
     parser.parse(data)
