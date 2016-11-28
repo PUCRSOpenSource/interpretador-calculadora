@@ -5,6 +5,7 @@ from . import BcLexer as lexer
 lexer.build()
 tokens = lexer.tokens
 names = {}
+funtionStack = ()
 precedence = (
         ('left', 'OR'),
         ('left', 'AND'),
@@ -25,8 +26,23 @@ def p_expr_statement(token):
 def p_built_in_unary(token):
     """
         statement : SHOW_ALL
-                  | HELP
     """
+
+def p_built_in_ops(token):
+    """
+        statement : HELP
+    """
+    print('asasdasd')
+    # print('#############')
+    # print('#  Manual   #')
+    # print('#############')
+    # print('''Examples
+    #          1+1 Input
+    #          2   Result
+    #          1 / 3 Input
+    #         .33333333333333333333 Result
+    #          4 * (6 + 7) Input
+    #          52 Result''')    
 
 def p_built_in_binary(token):
     """
@@ -40,6 +56,14 @@ def p_function(token):
     """
         statement  : DEFINE ID LPAREN listParams RPAREN LBRACE liststatements RBRACE
     """
+    tmp = names.get(token[2], None)
+    if tmp != None:
+        funtionStack.push((token[2], token[4]))
+        evaluate(tmp)
+    else:
+        names[token[2]] = ('define', token[2] ,token[7])
+
+
 
 def p_expr_statement_assign(token):
     """
@@ -168,6 +192,9 @@ def p_statments_empty(t):
         liststatements : empty        
     '''
 
+def p_error(t):
+    print('Syntax Error in input !', t)
+
 def p_empty(token):
     """empty :"""
     pass
@@ -204,6 +231,10 @@ def evaluate(lst):
         for i in range(evaluate(lst[1]),evaluate(lst[2]), evaluate(lst[3])):
             evaluate(lst[4])
         return
+    elif(lst[0] == 'define'):
+        params = funtionStack.pop()
+        return evaluate(names[lst[1]])
+
 
 def parse(data):
     parser.parse(data)
