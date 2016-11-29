@@ -27,22 +27,22 @@ def p_built_in_unary(token):
     """
         statement : SHOW_ALL
     """
+    print(names)
 
 def p_built_in_ops(token):
     """
         statement : HELP
     """
-    print('asasdasd')
-    # print('#############')
-    # print('#  Manual   #')
-    # print('#############')
-    # print('''Examples
-    #          1+1 Input
-    #          2   Result
-    #          1 / 3 Input
-    #         .33333333333333333333 Result
-    #          4 * (6 + 7) Input
-    #          52 Result''')    
+    print('#############')
+    print('#  Manual   #')
+    print('#############')
+    print('''Examples
+             1+1 Input
+             2   Result
+             1 / 3 Input
+            .33333333333333333333 Result
+             4 * (6 + 7) Input
+             52 Result''')    
 
 def p_built_in_binary(token):
     """
@@ -161,7 +161,6 @@ def p_expr_bin(token):
         token[0] = ('||' , token[1] , token[3])
     elif token[2] == '!=':
         token[0] = ('!=' , token[1] , token[3])
-    print(token[0])
     print(evaluate(token[0]))
 
 def p_expression_uminus(token):

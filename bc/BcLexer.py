@@ -13,12 +13,12 @@ literals = [':', '?']
 t_ignore  = ' \t\r'
 
 reserved = {
-        '#help'     : 'HELP',
-        '#load'     : 'LOAD',
-        '#save'     : 'SAVE',
-        '#show'     : 'SHOW',
-        '#show_all' : 'SHOW_ALL',
-        '#print'    : 'PRINT',
+        'help'     : 'HELP',
+        'load'     : 'LOAD',
+        'save'     : 'SAVE',
+        'show'     : 'SHOW',
+        'show_all' : 'SHOW_ALL',
+        'print'    : 'PRINT',
         'if'        : 'IF',
         'else'      : 'ELSE',
         'while'     : 'WHILE',
