@@ -5,7 +5,7 @@ from . import BcLexer as lexer
 lexer.build()
 tokens = lexer.tokens
 names = {}
-funtionStack = ()
+funtionStack = list()
 precedence = (
         ('left', 'OR'),
         ('left', 'AND'),
@@ -57,24 +57,41 @@ def p_built_in_print_id(p):
     '''
     print(names.get( p[2] , None ))
 
-def p_evaluate_function(p):
+def p_evaluate_id(p):
     '''
         statement : EVALUATE ID
     '''
     print(evaluate(names.get( p[2] , None )))
 
+def p_evaluate_expr(p):
+    '''
+        statement : EVALUATE expr
+    '''
+    print(evaluate(p[2]))
+    
 def p_function(token):
     """
         statement  : DEFINE ID LPAREN listParams RPAREN LBRACE liststatements RBRACE
     """
     tmp = names.get(token[2], None)
+    if tmp == None:
+        names[token[2]] = ('define', token[2] ,token[7])
+    else:
+        print("function name already defined")
+
+def p_function_call(p):
+    '''
+        statment :  ID LPAREN listParams RPAREN
+                 | ID LPAREN RPAREN
+    '''
+    tmp = names.get(p[1], None)
     if tmp != None:
-        funtionStack.push((token[2], token[4]))
+        funtionStack.append(p[3]) if p[3] != None else None
+        print('aqui')
         evaluate(tmp)
     else:
-        names[token[2]] = ('define', token[2] ,token[7])
-
-
+        print("function name not defined yet")
+        
 
 def p_expr_statement_assign(token):
     """
@@ -115,7 +132,7 @@ def p_for_loop(token):
         statement : FOR LPAREN expr SEMI expr SEMI expr RPAREN LBRACE liststatements RBRACE
     """
     token[0] = ('for', token[3], token[5], token[7], token[10])
-    print(token[0])
+#    aprint(token[0])
     print(evaluate(token[0]))
 
 def p_not(token):
@@ -140,6 +157,8 @@ def p_expr_id(token):
     """expr : ID """
     if token[1] in names:
         token[0] = names[token[1]]
+    else:
+        print('identifier not defined')
 
 def p_expr_paren(token):
     """
@@ -208,11 +227,11 @@ def p_params(token):
                    | empty
     """
 
-def p_statements(p):
+def p_statements(t):
     """
         liststatements : expr SEMI liststatements
     """
-    p[0] = p[1]
+    t[0] = ('liststatments' , t[1], t[3])
 
 def p_statments_alone(t):
     '''
@@ -224,17 +243,20 @@ def p_statments_empty(t):
     '''
         liststatements : empty        
     '''
+    pass
 
 def p_error(t):
     print('Syntax Error in input !', t)
 
 def p_empty(token):
-    """empty :"""
+    """empty :  """
     pass
 
 def evaluate(lst):
     if(lst[0] == 'num'):
         return lst[1]
+    elif(lst[0] == 'id'):
+        return names.get(lst[1] , None)
     elif(lst[0] == None):
         print('Identifier invalid')
     elif(lst[0] == 'bool'):
@@ -265,7 +287,9 @@ def evaluate(lst):
         return evaluate(lst[1]) != evaluate(lst[2])
     elif(lst[0] == 'not'):
         return not evaluate(lst[1])
-
+    elif(lst[0] == 'liststatments'):
+        return ( evaluate(lst[1]) , evaluate(lst[2]) )
+    
     elif(lst[0] == 'ternary'):
         return lst[1] if evaluate(lst[2]) else lst[3]
 
@@ -274,8 +298,8 @@ def evaluate(lst):
             print(evaluate(lst[4]))
         return
     elif(lst[0] == 'define'):
-        params = funtionStack.pop()
-        return evaluate(names[lst[1]])
+        params = funtionStack.pop() if len(funtionStack) > 0 else None
+        return evaluate(names[lst[1]][2])
 
 
 def parse(data):
