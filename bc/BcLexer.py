@@ -23,7 +23,10 @@ reserved = {
         'else'      : 'ELSE',
         'while'     : 'WHILE',
         'for'       : 'FOR',
-        'define'    : 'DEFINE'
+        'define'    : 'DEFINE',
+        'true'      : 'TRUE',
+        'false'     : 'FALSE',
+        'evaluate'  : 'EVALUATE'
         }
 tokens = ['PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POW',
         'LT', 'GT', 'LE', 'GE', 'EQ', 'NE',
@@ -32,7 +35,7 @@ tokens = ['PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POW',
         'LPAREN', 'RPAREN',
         'LBRACKET', 'RBRACKET',
         'LBRACE', 'RBRACE', 'COMMA', 'SEMI',
-        'ID', 'NUMBER'] + list(reserved.values())
+        'ID', 'NUMBER', 'QUESTION', 'COLLUMN'] + list(reserved.values())
 
 t_PLUS       = r'\+'
 t_MINUS      = r'-'
@@ -59,7 +62,8 @@ t_LBRACE     = r'\{'
 t_RBRACE     = r'\}'
 t_COMMA      = r','
 t_SEMI       = r';'
-
+t_QUESTION   = r'\?'
+t_COLLUMN    = r':'
 
 def t_newline(token):
     r'\n+'

@@ -49,8 +49,19 @@ def p_built_in_binary(token):
         statement : SHOW ID
                   | SAVE ID
                   | LOAD ID
-                  | PRINT ID
     """
+
+def p_built_in_print_id(p):
+    '''
+        statement : PRINT ID
+    '''
+    print(names.get( p[2] , None ))
+
+def p_evaluate_function(p):
+    '''
+        statement : EVALUATE ID
+    '''
+    print(evaluate(names.get( p[2] , None )))
 
 def p_function(token):
     """
@@ -111,15 +122,31 @@ def p_not(token):
     """
         statement : NOT expr
     """
+    token[0] = ('not', token[2])
+    print(evaluate(token[0]))
 
 def p_expr_number(token):
     """expr : NUMBER"""
     token[0] = ('num',token[1])
 
+def p_expr_bool(token):
+    '''
+        expr : TRUE
+             | FALSE
+    '''
+    token[0] = ('bool', token[1])
+
 def p_expr_id(token):
     """expr : ID """
     if token[1] in names:
         token[0] = names[token[1]]
+
+def p_expr_paren(token):
+    """
+        expr : LPAREN expr RPAREN
+    """
+    token[0] = token[2]
+    # print (evaluate(token[0]))
 
 def p_expr_bin(token):
     """
@@ -161,11 +188,18 @@ def p_expr_bin(token):
         token[0] = ('||' , token[1] , token[3])
     elif token[2] == '!=':
         token[0] = ('!=' , token[1] , token[3])
-    print(evaluate(token[0]))
+    # print(evaluate(token[0]))
 
 def p_expression_uminus(token):
     """expr : MINUS expr %prec UMINUS"""
     token[0] = -token[2]
+
+def p_ternary(p):
+    '''
+        expr : expr QUESTION expr COLLUMN expr
+    '''
+    p[0] = ('ternary', p[1], p[3], p[5])
+    evaluate(p[0])
 
 def p_params(token):
     """
@@ -174,15 +208,15 @@ def p_params(token):
                    | empty
     """
 
-def p_statements(token):
+def p_statements(p):
     """
-        liststatements : statement SEMI liststatements
+        liststatements : expr SEMI liststatements
     """
-
+    p[0] = p[1]
 
 def p_statments_alone(t):
     '''
-        liststatements : statement        
+        liststatements : expr        
     '''    
     t[0] = t[1]
 
@@ -201,6 +235,10 @@ def p_empty(token):
 def evaluate(lst):
     if(lst[0] == 'num'):
         return lst[1]
+    elif(lst[0] == None):
+        print('Identifier invalid')
+    elif(lst[0] == 'bool'):
+        return True if lst[1] == 'true' else False
     elif(lst[0] == '+'):
         return evaluate(lst[1]) + evaluate(lst[2])
     elif(lst[0] == '-'):
@@ -225,10 +263,15 @@ def evaluate(lst):
         return evaluate(lst[1]) or evaluate(lst[2])
     elif(lst[0] == '!='):
         return evaluate(lst[1]) != evaluate(lst[2])
+    elif(lst[0] == 'not'):
+        return not evaluate(lst[1])
+
+    elif(lst[0] == 'ternary'):
+        return lst[1] if evaluate(lst[2]) else lst[3]
 
     elif(lst[0] == 'for'):
         for i in range(evaluate(lst[1]),evaluate(lst[2]), evaluate(lst[3])):
-            evaluate(lst[4])
+            print(evaluate(lst[4]))
         return
     elif(lst[0] == 'define'):
         params = funtionStack.pop()
